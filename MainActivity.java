@@ -37,10 +37,12 @@ public class MainActivity extends AppCompatActivity {
             super.onPreExecute();
  
             MainActivity activity = activityWeakReference.get();
-            if (activity == null || activity.isFinishing()) {
+            if (activity == null) {
                 return;
             }
- 
+            if (activity != null && activity.isFinishing()) { 
+                return;
+            }
             activity.progressBar.setVisibility(View.VISIBLE);
         }
  
@@ -63,10 +65,12 @@ public class MainActivity extends AppCompatActivity {
             super.onProgressUpdate(values);
  
             MainActivity activity = activityWeakReference.get();
-            if (activity == null || activity.isFinishing()) {
+            if (activity == null) {
                 return;
             }
- 
+            if (activity != null && activity.isFinishing()) { 
+                return;
+            }
             activity.progressBar.setProgress(values[0]);
         }
  
@@ -75,10 +79,12 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(s);
  
             MainActivity activity = activityWeakReference.get();
-            if (activity == null || activity.isFinishing()) {
+            if (activity == null) {
                 return;
             }
- 
+            if (activity != null && activity.isFinishing()) { 
+                return;
+            }
             Toast.makeText(activity, s, Toast.LENGTH_SHORT).show();
             activity.progressBar.setProgress(0);
             activity.progressBar.setVisibility(View.INVISIBLE);
